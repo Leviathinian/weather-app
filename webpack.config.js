@@ -24,6 +24,13 @@ module.exports = {
   devServer: {
     static: "./dist",
     hot: true,
+    proxy: {
+      '/weather': {
+        target: 'https://weather.visualcrossing.com',
+        changeOrigin: true,
+        pathRewrite: { '^/weather': '' },
+      },
+    },
   },
   mode: "development",
 };

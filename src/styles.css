@@ -7,3 +7,22 @@ body {
   place-items: center;
   height: 100vh;
 }
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.weather-card {
+  flex: 0 0 auto;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  min-width: 200px;
+  background-color: #f0f8ff;
+}
+
+.cityInput {
+  width: 20em;
+}

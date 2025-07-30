@@ -1,12 +1,30 @@
 import './styles.css';
-import { greet } from './modules/greet.js';
-import { capitalize } from './modules/utils.js';
-import { fetchWeather } from './modules/weatherapi.js'
-import { addCity, moveToNext, moveToPrevious } from './modules/weatherapi.js';
+import { addCity, moveToNext, moveToPrevious, deleteAllCards } from './modules/weatherapi.js';
 
 
 function createUI() {
     const root = document.body;
+    root.classList.add('light');
+
+    const settings = document.createElement('div');
+    settings.className = 'dropdown';
+    const settingsButton = document.createElement('button');
+    settingsButton.textContent = '⚙️';
+    settingsButton.onclick = settingsDropdown;
+    const darkModeToggleButton = document.createElement('button');
+    darkModeToggleButton.textContent = 'Toggle Light/Dark Mode';
+    darkModeToggleButton.id = 'darkModeToggle';
+    darkModeToggleButton.onclick = darkModeToggle;
+    darkModeToggleButton.style.display = 'none';
+    const clearButton = document.createElement('button');
+    clearButton.textContent = 'Clear All Weather Cards';
+    clearButton.id = 'clear';
+    clearButton.onclick = deleteAllCards;
+    clearButton.style.display = 'none';
+
+    settings.appendChild(settingsButton);
+    settings.appendChild(darkModeToggleButton);
+    settings.appendChild(clearButton);
 
     const title = document.createElement('h1');
     title.textContent = 'Weather App';
@@ -25,11 +43,16 @@ function createUI() {
     carousel.className = 'carousel';
 
     const navButtons = document.createElement('div');
+    navButtons.className = 'navButtons';
 
     const prevWeatherBtn = document.createElement('button');
     prevWeatherBtn.id = 'prevWeatherBtn';
     prevWeatherBtn.onclick = moveToPrevious;
     prevWeatherBtn.textContent = "⬅️"
+
+    const tracker = document.createElement('p');
+    tracker.id = 'tracker';
+    tracker.textContent = "0 / 0";
 
     const nextWeatherBtn = document.createElement('button');
     nextWeatherBtn.id = 'prevWeatherBtn';
@@ -37,8 +60,10 @@ function createUI() {
     nextWeatherBtn.textContent = "➡️";
 
     navButtons.appendChild(prevWeatherBtn);
+    navButtons.appendChild(tracker);
     navButtons.appendChild(nextWeatherBtn);
 
+    root.appendChild(settings);
     root.appendChild(title);
     root.appendChild(input);
     root.appendChild(button);
@@ -46,8 +71,34 @@ function createUI() {
     root.appendChild(navButtons);
 }
 
-const name = 'user';
-const message = greet(capitalize(name));
-document.getElementById('app').textContent = message;
-// console.log(fetchWeather(encodeURIComponent('New York City')));
+let darkMode = 0;
+let dropdownVisible = 0;
+
+function settingsDropdown() {
+    const darkMode = document.getElementById('darkModeToggle');
+    const clear = document.getElementById('clear');
+    if (dropdownVisible) {
+        darkMode.style.display = 'none';
+        clear.style.display = 'none';
+        dropdownVisible = 0;
+    } else {
+        darkMode.style.display = 'block';
+        clear.style.display = 'block';
+        dropdownVisible = 1;
+    }
+}
+
+function darkModeToggle() {
+    const root = document.body;
+    if (darkMode) {
+        root.classList.remove('dark');
+        root.classList.add('light');
+        darkMode = 0;
+    } else {
+        root.classList.remove('light');
+        root.classList.add('dark');
+        darkMode = 1;
+    }
+}
+
 createUI();

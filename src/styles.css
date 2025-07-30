@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background-color: #f4f4f4;
   color: #333;
   display: grid;
   place-items: center;
@@ -21,8 +20,37 @@ body {
   padding: 1rem;
   min-width: 200px;
   background-color: #f0f8ff;
+  color: #333;
 }
 
 .cityInput {
   width: 20em;
+}
+
+.navButtons {
+  display: flex;
+  flex-direction: row;
+  height: 2em;
+  justify-content: space-between;
+}
+
+button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  width: 12rem;
+}
+
+.light {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.dark {
+  background-color: #36393e;
+  color: #ffff
 }
